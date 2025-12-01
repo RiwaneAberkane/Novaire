@@ -1,5 +1,5 @@
-import { fetchHygraph } from "@/lib/hygraph";
 import Link from "next/link";
+import { fetchHygraph } from "@/lib/hygraph";
 
 type Product = {
   id: string;
@@ -7,15 +7,13 @@ type Product = {
   slug: string;
   price: number;
   shortDescription?: string;
-  image?: {
-    url: string;
-  };
+  image?: { url: string };
 };
 
 async function getProducts(): Promise<Product[]> {
   const query = `
     {
-      products(orderBy: createdAt_DESC, first: 8) {
+      products(orderBy: createdAt_DESC, first: 6) {
         id
         name
         slug
@@ -27,7 +25,6 @@ async function getProducts(): Promise<Product[]> {
       }
     }
   `;
-
   const data = await fetchHygraph<{ products: Product[] }>(query);
   return data.products;
 }
@@ -36,64 +33,176 @@ export default async function HomePage() {
   const products = await getProducts();
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16 space-y-16">
-      <section className="space-y-8">
-        <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">
-          NOVAIRE / E-commerce concept
-        </p>
+    <div className="mx-auto max-w-5xl px-5 py-10 md:py-14 space-y-16">
+      {/* HERO */}
+      <section className="grid gap-10 md:grid-cols-[1.3fr,0.9fr] items-center">
+        <div className="space-y-6">
+          <p className="text-[0.7rem] uppercase tracking-[0.3em] text-slate-400">
+            NOVAIRE / marque concept
+          </p>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight">
-          L&apos;élégance essentielle,
-          <span className="block text-neutral-400">
-            pensée pour le digital.
-          </span>
-        </h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-slate-950">
+            L&apos;essentiel,
+            <span className="block text-slate-500">
+              pensé pour le quotidien digital.
+            </span>
+          </h1>
 
-        <p className="max-w-xl text-neutral-400 text-sm sm:text-base">
-          NOVAIRE est une marque fictive conçue pour démontrer un e-commerce
-          moderne basé sur un headless CMS. Développé avec Next.js, Hygraph et
-          un design minimaliste, ce projet met l&apos;accent sur la performance,
-          la structure technique et l&apos;expérience utilisateur.
-        </p>
+          <p className="max-w-xl text-sm sm:text-base text-slate-600 leading-relaxed">
+            NOVAIRE est une marque fictive conçue pour démontrer un e-commerce
+            moderne en architecture headless. Produits gérés dans Hygraph,
+            pages dynamiques avec Next.js, et un design pensé pour un portfolio
+            100% 2025-ready.
+          </p>
+
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/products"
+              className="px-5 py-2.5 rounded-full text-sm font-medium bg-slate-900 text-white shadow-sm hover:bg-black transition"
+            >
+              Découvrir la boutique
+            </Link>
+            <a
+              href="#about"
+              className="px-5 py-2.5 rounded-full text-sm border border-slate-200 text-slate-600 hover:border-slate-900 hover:text-slate-900 transition bg-white/70"
+            >
+              Comprendre le projet
+            </a>
+          </div>
+        </div>
+
+        {/* Carte projet technique */}
+        <div className="space-y-4">
+          <div className="rounded-3xl border border-slate-200/80 bg-white/80 p-5 shadow-sm">
+            <p className="mb-2 text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
+              Projet portfolio
+            </p>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Pensé comme une démo professionnelle : Next.js (App Router),
+              TypeScript, Tailwind, Hygraph pour le catalogue, pages dynamiques
+              par slug, et architecture prête pour un panier global et un
+              futur checkout.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="rounded-2xl border border-slate-200 bg-white/80 p-4">
+              <p className="mb-1 text-[0.65rem] uppercase tracking-[0.2em] text-slate-400">
+                Stack
+              </p>
+              <p className="font-medium text-slate-800">
+                Next.js · TypeScript · Tailwind
+              </p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white/80 p-4">
+              <p className="mb-1 text-[0.65rem] uppercase tracking-[0.2em] text-slate-400">
+                CMS
+              </p>
+              <p className="font-medium text-slate-800">Hygraph (headless)</p>
+            </div>
+          </div>
+        </div>
       </section>
 
+      {/* A PROPOS */}
+      <section
+        id="about"
+        className="rounded-3xl border border-slate-200 bg-slate-50/80 px-6 py-8 md:px-8 md:py-9 space-y-6"
+      >
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400">
+              À propos
+            </p>
+            <h2 className="mt-1 text-xl md:text-2xl font-semibold tracking-tight text-slate-900">
+              NOVAIRE, une marque fictive traitée comme une vraie.
+            </h2>
+          </div>
+          <p className="max-w-sm text-xs text-slate-500">
+            Idéal à mentionner sur ton post LinkedIn : conception de la marque,
+            direction artistique, structure technique et mise en avant d&apos;un
+            flux produits connecté.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3 text-sm text-slate-600">
+          <div className="space-y-2">
+            <p className="text-[0.65rem] uppercase tracking-[0.18em] text-slate-400">
+              Vision
+            </p>
+            <p>
+              Peu de produits, mais bien présentés. Une expérience claire,
+              focus sur l&apos;essentiel et le confort utilisateur.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <p className="text-[0.65rem] uppercase tracking-[0.18em] text-slate-400">
+              UX & UI
+            </p>
+            <p>
+              Palette claire, cartes arrondies, glow subtil, et hiérarchie
+              typographique pensée pour un look 2025 minimaliste.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <p className="text-[0.65rem] uppercase tracking-[0.18em] text-slate-400">
+              Technique
+            </p>
+            <p>
+              Données Hygraph, routes dédiées à la boutique, pages dynamiques
+              par slug et base prête pour intégrer un panier et un checkout.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* PRODUITS EN AVANT */}
       <section className="space-y-6">
         <div className="flex items-center justify-between gap-4">
-          <h2 className="text-lg font-semibold">Produits en avant</h2>
-          <span className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-            {products.length} articles
-          </span>
+          <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+            Produits en avant
+          </h2>
+          <Link
+            href="/products"
+            className="text-xs uppercase tracking-[0.2em] text-slate-400 hover:text-slate-900 transition"
+          >
+            Voir tous les produits
+          </Link>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {products.map((product) => (
             <article
               key={product.id}
-              className="border border-neutral-800 rounded-2xl overflow-hidden flex flex-col group hover:border-neutral-600 transition"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white/90 shadow-sm hover:-translate-y-1 hover:border-slate-900 hover:shadow-lg transition"
             >
               {product.image && (
-                <div className="aspect-[4/5] overflow-hidden bg-neutral-900">
+                <div className="aspect-[4/5] overflow-hidden bg-slate-100">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={product.image.url}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               )}
 
-              <div className="p-4 space-y-2 flex-1 flex flex-col">
-                <h3 className="text-sm font-medium">{product.name}</h3>
+              <div className="flex flex-1 flex-col space-y-2 p-4">
+                <h3 className="text-sm font-medium text-slate-900">
+                  {product.name}
+                </h3>
                 {product.shortDescription && (
-                  <p className="text-xs text-neutral-500 line-clamp-2">
+                  <p className="text-xs text-slate-500 line-clamp-2">
                     {product.shortDescription}
                   </p>
                 )}
                 <div className="mt-3 flex items-center justify-between text-sm">
-                  <span className="font-semibold">{product.price.toFixed(2)} €</span>
+                  <span className="font-semibold text-slate-900">
+                    {product.price.toFixed(2)} €
+                  </span>
                   <Link
                     href={`/products/${product.slug}`}
-                    className="text-xs uppercase tracking-[0.15em] border border-neutral-700 rounded-full px-3 py-1 hover:border-neutral-400 hover:text-neutral-50 transition"
+                    className="text-[0.7rem] uppercase tracking-[0.16em] rounded-full border border-slate-300 px-3 py-1 text-slate-700 hover:border-slate-900 hover:text-slate-900 transition"
                   >
                     Voir
                   </Link>
