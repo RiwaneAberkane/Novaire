@@ -63,12 +63,15 @@ export default async function ProductPage({ params }: PageProps) {
 
     return (
         <div className="max-w-5xl mx-auto px-4 py-16 space-y-10">
-            <a
-                href="/products"
-                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-neutral-300 transition"
-            >
-                ← Retour à la boutique
-            </a>
+            <div className="flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-neutral-500">
+                <a href="/" className="hover:text-neutral-300 transition">
+                    ← Accueil
+                </a>
+                <span className="text-neutral-700">/</span>
+                <a href="/products" className="hover:text-neutral-300 transition">
+                    Boutique
+                </a>
+            </div>
 
             <div className="grid gap-10 md:grid-cols-[1.1fr,0.9fr] items-start">
                 {/* Image produit */}
