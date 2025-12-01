@@ -2,13 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Thème global NOVAIRE */
+
 :root {
   color-scheme: light;
 }
 
+.dark {
+  color-scheme: dark;
+}
+
 body {
-  background-color: #020617;
-  /* fond sombre derrière la carte blanche */
+  background-color: #ffffff;
   color: #020617;
   -webkit-font-smoothing: antialiased;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
